@@ -17,16 +17,22 @@ class Node:
 class SampleLexer(Lexer):
     """
     Grammar.
+    statement: value
+             | LBRACKET variable RBRACKET
     value    : STRING
              | NUMBER
+    variable : STRING
     """
 
-    tokens = {STRING, NUMBER}  # type: ignore # noqa: F821
+    ignore = " \t"
+
+    tokens = {STRING, NUMBER, LBRACKET, RBRACKET}  # type: ignore # noqa: F821
 
     STRING = r"[a-zA-Z_][a-zA-Z0-9_]*"
     NUMBER = r"\d+"
 
-    ignore = " \t"
+    LBRACKET = r"{"
+    RBRACKET = r"}"
 
     @_(r"\n+")  # type: ignore # noqa: F821
     def newline(self, t) -> None:
