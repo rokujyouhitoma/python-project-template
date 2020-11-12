@@ -13,7 +13,7 @@ def Token(type, value, lineno, index):
     return token
 
 
-class TestParser:
+class TestLexer:
     @pytest.mark.parametrize(
         "test_input,expected", [
             ("{a}", [
@@ -23,9 +23,8 @@ class TestParser:
             ]),
         ]
     )
-    def test_parser(self, test_input, expected):
+    def test_tokenize(self, test_input, expected):
         lexer = SampleLexer()
-        parser = SampleParser()
         tokens = [token for token in lexer.tokenize(test_input)]
         for v1, v2 in zip(tokens, expected):
             assert v1.type == v2.type
@@ -33,3 +32,24 @@ class TestParser:
             assert v1.lineno == v2.lineno
             assert v1.index == v2.index
 
+
+class TestParser:
+    @pytest.mark.parametrize(
+        "test_input,expected", [
+            ("a", Node(type='STRING', body='a')),
+            ("{a}", Node(type='VARIABLE', body='a')),
+        ]
+    )
+    def test_parse(self, test_input, expected):
+        lexer = SampleLexer()
+        parser = SampleParser()
+        node = parser.parse(lexer.tokenize(test_input))
+        assert node == expected
+
+
+def test_parser():
+    query = "{a}"
+    lexer = SampleLexer()
+    parser = SampleParser()
+    ast = parser.parse(lexer.tokenize(query))
+    assert ast
