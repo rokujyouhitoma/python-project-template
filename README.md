@@ -15,3 +15,9 @@
 2. Rust
 3. JavaScript
 4. Scheme
+
+----
+
+```
+poetry env use python3.8
+```
