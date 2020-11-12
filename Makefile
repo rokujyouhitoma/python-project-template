@@ -40,4 +40,4 @@ mypy: ## mypy
 
 .PHONY: pytest
 pytest: ## pytest
-	PYTHONPATH=${SRC} pytest --cov=${SRC} --cov-fail-under=0 -v ${TESTS} --cov-report=term-missing -n 2
+	PYTHONPATH=${SRC} pytest --cov=${SRC} --cov-fail-under=70 -v ${TESTS} --cov-report=term-missing -n 2
