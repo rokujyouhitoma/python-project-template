@@ -46,6 +46,14 @@ class SampleLexer(Lexer):
 class SampleParser(Parser):
     tokens = SampleLexer.tokens
 
+    @_("value")  # type: ignore # noqa: F821
+    def statement(self, p):  # noqa: F811
+        return p.value
+
+    @_("LBRACKET variable RBRACKET")  # type: ignore # noqa: F821
+    def statement(self, p):  # noqa: F811
+        return p.variable
+
     @_("STRING")  # type: ignore # noqa: F821
     def value(self, p) -> Node:
         return Node(type="STRING", body=p.STRING)
@@ -53,6 +61,10 @@ class SampleParser(Parser):
     @_("NUMBER")  # type: ignore # noqa: F821
     def value(self, p) -> Node:  # noqa: F811
         return Node(type="NUMBER", body=int(p.NUMBER))
+
+    @_("STRING")  # type: ignore # noqa: F821
+    def variable(self, p) -> Node:  # noqa: F811
+        return Node(type="VARIABLE", body=p.STRING)
 
 
 if __name__ == "__main__":
