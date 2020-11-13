@@ -2,7 +2,7 @@ PYTHON=poetry run python
 SRC=src
 TESTS=tests
 
-all: clean format test run
+all: clean format static_analysis test run
 
 .PHONY: help
 help: ## help command
@@ -13,7 +13,10 @@ clean: ## clean
 	echo "clean"
 
 .PHONY: format
-format: isort black flake8 mypy ## execute format
+format: isort black flake8 ## execute format
+
+.PHONY: static_analysis
+static_analysis: xenon mypy ## static analysis
 
 .PHONY: test
 test: pytest ## pytest
@@ -33,6 +36,10 @@ black: ## black
 .PHONY: flake8
 flake8: ## flake8
 	flake8 ${SRC}
+
+.PHONY: xenon
+xenon: ## xenon
+	xenon --max-absolute A --max-modules A --max-average A ${SRC}
 
 .PHONY: mypy
 mypy: ## mypy
