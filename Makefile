@@ -13,10 +13,10 @@ clean: ## clean
 	echo "clean"
 
 .PHONY: format
-format: isort black flake8 ## execute format
+format: isort black flake8 ## format
 
 .PHONY: static_analysis
-static_analysis: xenon mypy ## static analysis
+static_analysis: radon-cc radon-raw radon-mi radon-hal xenon mypy ## static analysis
 
 .PHONY: test
 test: pytest ## pytest
@@ -36,6 +36,22 @@ black: ## black
 .PHONY: flake8
 flake8: ## flake8
 	flake8 ${SRC}
+
+.PHONY: radon-cc
+radon-cc: ## radon compute Cyclomatic Complexity (CC)
+	radon cc ${SRC} -s -a -na
+
+.PHONY: radon-raw
+radon-raw: ## radon compute raw metrics
+	radon raw ${SRC}
+
+.PHONY: radon-mi
+radon-mi: ## radon compute the Maintainability Index
+	radon mi ${SRC} -s -na
+
+.PHONY: radon-hal
+radon-hal: ## radon compute their Halstead metrics
+	radon hal ${SRC}
 
 .PHONY: xenon
 xenon: ## xenon
