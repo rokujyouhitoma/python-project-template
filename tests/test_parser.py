@@ -37,7 +37,9 @@ class TestParser:
     @pytest.mark.parametrize(
         "test_input,expected", [
             ("a", Node(type='STRING', body='a')),
+            ("xyz", Node(type='STRING', body='xyz')),
             ("{a}", Node(type='VARIABLE', body='a')),
+            ("{xyz}", Node(type='VARIABLE', body='xyz')),
         ]
     )
     def test_parse(self, test_input, expected):
