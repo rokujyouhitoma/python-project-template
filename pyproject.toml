@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "template-engine"
+name = "python-project-template"
 version = "0.1.0"
-description = "template engine"
+description = "python project template"
 authors = ["Ike Tohru <ike.tohru@gmail.com>"]
 license = "MIT"
 

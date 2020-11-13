@@ -1,4 +1,6 @@
-PYTHON=poetry run python
+PACKAGE=sample
+PYTHON=python3.8
+RUN_PAYTHON=poetry run ${PYTHON}
 SRC=src
 TESTS=tests
 
@@ -12,6 +14,18 @@ help: ## help command
 clean: ## clean
 	echo "clean"
 
+.PHONY: setup
+setup: activate install ## setup venv, activate and install python libraries
+
+.PHONY: activate
+activate: ## Activate venv
+	poetry env use ${PYTHON}
+	. .venv/bin/activate
+
+.PHONY: install
+install: ## Install python libraries
+	poetry install
+
 .PHONY: format
 format: isort black flake8 ## format
 
@@ -23,7 +37,7 @@ test: pytest ## pytest
 
 .PHONY: run
 run: ## run python code
-	${PYTHON} ${SRC}/parser.py
+	${RUN_PYTHON} ${SRC}/parser.py
 
 .PHONY: isort
 isort: ## isort
@@ -64,3 +78,4 @@ mypy: ## mypy
 .PHONY: pytest
 pytest: ## pytest
 	PYTHONPATH=${SRC} pytest --cov=${SRC} --cov-fail-under=70 -v ${TESTS} --cov-report=term-missing -n 2
+
