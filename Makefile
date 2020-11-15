@@ -13,7 +13,7 @@ help: ## help command
 
 .PHONY: clean
 clean: ## clean
-	echo "clean"
+	rm -rf dist/
 
 .PHONY: setup
 setup: activate install ## setup venv, activate and install python libraries
