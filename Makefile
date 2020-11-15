@@ -1,10 +1,11 @@
 PACKAGE=sample
 PYTHON=python3.8
-RUN_PYTHON=poetry run ${PYTHON}
+POETRY=poetry
+RUN_PYTHON=${POETRY} run ${PYTHON}
 SRC=src
 TESTS=tests
 
-all: clean format static_analysis test run
+all: clean format static_analysis test build run
 
 .PHONY: help
 help: ## help command
@@ -34,6 +35,10 @@ static_analysis: radon-cc radon-raw radon-mi radon-hal xenon mypy ## static anal
 
 .PHONY: test
 test: pytest ## pytest
+
+.PHONY: build
+build: ## run python code
+	${POETRY} build
 
 .PHONY: run
 run: ## run python code
