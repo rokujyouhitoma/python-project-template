@@ -1,6 +1,6 @@
 PACKAGE=sample
 PYTHON=python3.8
-RUN_PAYTHON=poetry run ${PYTHON}
+RUN_PYTHON=poetry run ${PYTHON}
 SRC=src
 TESTS=tests
 
@@ -37,7 +37,7 @@ test: pytest ## pytest
 
 .PHONY: run
 run: ## run python code
-	${RUN_PYTHON} ${SRC}/parser.py
+	${RUN_PYTHON} ${SRC}/${PACKAGE}/parser.py
 
 .PHONY: isort
 isort: ## isort
