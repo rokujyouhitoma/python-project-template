@@ -21,6 +21,13 @@ class TestLexer:
                 Token(type='STRING', value='a', lineno=1, index=1),
                 Token(type='RBRACKET', value='}', lineno=1, index=2)
             ]),
+            ("a\n", [
+                Token(type='STRING', value='a', lineno=1, index=0),
+            ]),
+            ("a\nb", [
+                Token(type='STRING', value='a', lineno=1, index=0),
+                Token(type='STRING', value='b', lineno=2, index=2),
+            ]),
         ]
     )
     def test_tokenize(self, test_input, expected):
