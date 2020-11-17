@@ -38,10 +38,6 @@ class SampleLexer(Lexer):
     def newline(self, t) -> None:
         self.lineno += t.value.count("\n")
 
-    def error(self, t) -> None:
-        print("Illegal character '%s'" % t.value[0])
-        self.index += 1
-
 
 class SampleParser(Parser):
     tokens = SampleLexer.tokens
