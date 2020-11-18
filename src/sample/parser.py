@@ -61,12 +61,3 @@ class SampleParser(Parser):
     @_("STRING")  # type: ignore # noqa: F821
     def variable(self, p) -> Node:  # noqa: F811
         return Node(type="VARIABLE", body=p.STRING)
-
-
-if __name__ == "__main__":
-    query = "aaa"
-    logger.debug("query={0}".format(query))
-    lexer = SampleLexer()
-    parser = SampleParser()
-    ast = parser.parse(lexer.tokenize(query))
-    logger.debug(ast)
