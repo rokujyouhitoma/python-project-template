@@ -59,5 +59,5 @@ class SampleParser(Parser):
         return Node(type="NUMBER", body=int(p.NUMBER))
 
     @_("STRING")  # type: ignore # noqa: F821
-    def variable(self, p) -> Node:  # noqa: F811
+    def variable(self, p) -> Node:
         return Node(type="VARIABLE", body=p.STRING)
