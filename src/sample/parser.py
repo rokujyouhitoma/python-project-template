@@ -1,11 +1,7 @@
 import dataclasses
-import logging
 import typing
 
 from sly import Lexer, Parser  # type: ignore
-
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
 
 
 @dataclasses.dataclass
