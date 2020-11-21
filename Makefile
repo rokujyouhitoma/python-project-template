@@ -54,7 +54,7 @@ black: ## black
 
 .PHONY: flake8
 flake8: ## flake8
-	flake8 ${SRC}
+	flake8 --max-line-length=120 ${SRC}
 
 .PHONY: radon-cc
 radon-cc: ## radon compute Cyclomatic Complexity (CC)
