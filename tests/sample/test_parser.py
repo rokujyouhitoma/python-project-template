@@ -16,10 +16,10 @@ def Token(type, value, lineno, index):
 class TestLexer:
     @pytest.mark.parametrize(
         "test_input,expected", [
-            ("{a}", [
-                Token(type='LBRACKET', value='{', lineno=1, index=0),
-                Token(type='STRING', value='a', lineno=1, index=1),
-                Token(type='RBRACKET', value='}', lineno=1, index=2)
+            ("{{a}}", [
+                Token(type='DLBRACKET', value='{{', lineno=1, index=0),
+                Token(type='STRING', value='a', lineno=1, index=2),
+                Token(type='DRBRACKET', value='}}', lineno=1, index=3)
             ]),
             ("a\n", [
                 Token(type='STRING', value='a', lineno=1, index=0),
@@ -46,8 +46,8 @@ class TestParser:
             ("a", Node(type='STRING', body='a')),
             ("1", Node(type='NUMBER', body=1)),
             ("xyz", Node(type='STRING', body='xyz')),
-            ("{a}", Node(type='VARIABLE', body='a')),
-            ("{xyz}", Node(type='VARIABLE', body='xyz')),
+            ("{{a}}", Node(type='VARIABLE', body='a')),
+            ("{{xyz}}", Node(type='VARIABLE', body='xyz')),
         ]
     )
     def test_parse(self, test_input, expected):
@@ -58,7 +58,7 @@ class TestParser:
 
 
 def test_parser():
-    query = "{a}"
+    query = "{{a}}"
     lexer = SampleLexer()
     parser = SampleParser()
     ast = parser.parse(lexer.tokenize(query))

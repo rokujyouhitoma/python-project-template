@@ -14,7 +14,7 @@ class SampleLexer(Lexer):
     """
     Grammar.
     statement: value
-             | LBRACKET variable RBRACKET
+             | DLBRACKET variable DRBRACKET
     value    : STRING
              | NUMBER
     variable : STRING
@@ -22,13 +22,13 @@ class SampleLexer(Lexer):
 
     ignore = " \t"
 
-    tokens = {STRING, NUMBER, LBRACKET, RBRACKET}  # type: ignore # noqa: F821
+    tokens = {STRING, NUMBER, DLBRACKET, DRBRACKET}  # type: ignore # noqa: F821
 
     STRING = r"[a-zA-Z_][a-zA-Z0-9_]*"
     NUMBER = r"\d+"
 
-    LBRACKET = r"{"
-    RBRACKET = r"}"
+    DLBRACKET = r"{{"
+    DRBRACKET = r"}}"
 
     @_(r"\n+")  # type: ignore # noqa: F821
     def newline(self, t) -> None:
@@ -42,7 +42,7 @@ class SampleParser(Parser):
     def statement(self, p):  # noqa: F811
         return p.value
 
-    @_("LBRACKET variable RBRACKET")  # type: ignore # noqa: F821
+    @_("DLBRACKET variable DRBRACKET")  # type: ignore # noqa: F821
     def statement(self, p):  # noqa: F811
         return p.variable
 
