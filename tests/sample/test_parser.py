@@ -28,16 +28,23 @@ class TestLexer:
                 Token(type='STRING', value='a', lineno=1, index=0),
                 Token(type='STRING', value='b', lineno=2, index=2),
             ]),
+            ("Hello {{ name }}!", [
+                Token(type='STRING', value='Hello ', lineno=1, index=0),
+                Token(type='DLBRACKET', value='{{', lineno=1, index=6),
+                Token(type='STRING', value=' name ', lineno=1, index=8),
+                Token(type='DRBRACKET', value='}}', lineno=1, index=14),
+                Token(type='STRING', value='!', lineno=1, index=16)
+            ]),
         ]
     )
     def test_tokenize(self, test_input, expected):
         lexer = SampleLexer()
         tokens = [token for token in lexer.tokenize(test_input)]
+        print(tokens)
         for v1, v2 in zip(tokens, expected):
-            assert v1.type == v2.type
-            assert v1.value == v2.value
-            assert v1.lineno == v2.lineno
-            assert v1.index == v2.index
+            assert (v1.type, v1.value) == (v2.type, v2.value)
+            assert (v1.lineno, v1.index) == (v2.lineno, v2.index)
+        assert len(tokens) == len(expected)
 
 
 class TestParser:

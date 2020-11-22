@@ -20,12 +20,12 @@ class SampleLexer(Lexer):
     variable : STRING
     """
 
-    ignore = " \t"
+    ignore = "\t"
 
     tokens = {STRING, NUMBER, DLBRACKET, DRBRACKET}  # type: ignore # noqa: F821
 
-    STRING = r"[a-zA-Z_][a-zA-Z0-9_]*"
     NUMBER = r"\d+"
+    STRING = r"[a-zA-Z0-9_! ]+"
 
     DLBRACKET = r"{{"
     DRBRACKET = r"}}"
@@ -56,4 +56,4 @@ class SampleParser(Parser):
 
     @_("STRING")  # type: ignore # noqa: F821
     def variable(self, p) -> Node:
-        return Node(type="VARIABLE", body=p.STRING)
+        return Node(type="VARIABLE", body=p.STRING.strip())
