@@ -30,7 +30,7 @@ jobs:
         python -m pip install --upgrade pip
         poetry export -f requirements.txt > requirements.txt
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install flake8 pytest
+        pip install flake8 pytest mypy
     - name: Lint with flake8
       run: |
         PYTHONPATH=src/ flake8 . --count --show-source --statistics
@@ -38,3 +38,6 @@ jobs:
     - name: Test with pytest
       run: |
         PYTHONPATH=src/ pytest
+    - name: Static type checker with mypy
+      run: |
+        PYTHONPATH=src/ mypy src/
