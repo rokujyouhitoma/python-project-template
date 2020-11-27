@@ -7,7 +7,9 @@ old=sample
 new=$1
 
 files=(
-    "/path/to/file"
+    "Makefile"
+    "pyproject.toml"
+    "tests/sampletests/sample/test_parser.py"
 )
 
 for ((i=0; i < ${#files[@]}; i++)) {
