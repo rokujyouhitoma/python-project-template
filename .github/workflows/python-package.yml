@@ -33,7 +33,7 @@ jobs:
         pip install flake8 pytest mypy
     - name: Lint with flake8
       run: |
-        PYTHONPATH=src/ flake8 . --count --show-source --statistics
+        PYTHONPATH=src/ flake8 . --count --show-source --max-line-length=120 --statistics
         PYTHONPATH=src/ flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
     - name: Test with pytest
       run: |
