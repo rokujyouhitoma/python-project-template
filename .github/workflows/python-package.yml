@@ -1,4 +1,4 @@
-name: Python flake8 pytest
+name: Python poetry flake8 pytest mypy
 
 on:
   push:
