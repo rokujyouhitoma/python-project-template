@@ -50,7 +50,7 @@ isort: ## isort
 
 .PHONY: black
 black: ## black
-	black ${SRC}
+	find ${SRC} -name "*.py" | xargs black
 
 .PHONY: flake8
 flake8: ## flake8
