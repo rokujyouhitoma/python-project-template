@@ -1,11 +1,7 @@
 import dataclasses
-import logging
 import typing
 
 from sly import Lexer, Parser  # type: ignore
-
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG)
 
 
 @dataclasses.dataclass
@@ -18,29 +14,25 @@ class SampleLexer(Lexer):
     """
     Grammar.
     statement: value
-             | LBRACKET variable RBRACKET
+             | DLBRACKET variable DRBRACKET
     value    : STRING
              | NUMBER
     variable : STRING
     """
 
-    ignore = " \t"
+    ignore = "\t"
 
-    tokens = {STRING, NUMBER, LBRACKET, RBRACKET}  # type: ignore # noqa: F821
+    tokens = {STRING, NUMBER, DLBRACKET, DRBRACKET}  # type: ignore # noqa: F821
 
-    STRING = r"[a-zA-Z_][a-zA-Z0-9_]*"
     NUMBER = r"\d+"
+    STRING = r"[a-zA-Z0-9_! ]+"
 
-    LBRACKET = r"{"
-    RBRACKET = r"}"
+    DLBRACKET = r"{{"
+    DRBRACKET = r"}}"
 
     @_(r"\n+")  # type: ignore # noqa: F821
     def newline(self, t) -> None:
         self.lineno += t.value.count("\n")
-
-    def error(self, t) -> None:
-        print("Illegal character '%s'" % t.value[0])
-        self.index += 1
 
 
 class SampleParser(Parser):
@@ -50,7 +42,7 @@ class SampleParser(Parser):
     def statement(self, p):  # noqa: F811
         return p.value
 
-    @_("LBRACKET variable RBRACKET")  # type: ignore # noqa: F821
+    @_("DLBRACKET variable DRBRACKET")  # type: ignore # noqa: F821
     def statement(self, p):  # noqa: F811
         return p.variable
 
@@ -63,14 +55,5 @@ class SampleParser(Parser):
         return Node(type="NUMBER", body=int(p.NUMBER))
 
     @_("STRING")  # type: ignore # noqa: F821
-    def variable(self, p) -> Node:  # noqa: F811
-        return Node(type="VARIABLE", body=p.STRING)
-
-
-if __name__ == "__main__":
-    query = "aaa"
-    logger.debug("query={0}".format(query))
-    lexer = SampleLexer()
-    parser = SampleParser()
-    ast = parser.parse(lexer.tokenize(query))
-    logger.debug(ast)
+    def variable(self, p) -> Node:
+        return Node(type="VARIABLE", body=p.STRING.strip())

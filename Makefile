@@ -1,8 +1,11 @@
-PYTHON=poetry run python
+PACKAGE=sample
+PYTHON=python3.8
+POETRY=poetry
+RUN_PYTHON=${POETRY} run ${PYTHON}
 SRC=src
 TESTS=tests
 
-all: clean format static_analysis test run
+all: clean format static_analysis test build run
 
 .PHONY: help
 help: ## help command
@@ -10,7 +13,19 @@ help: ## help command
 
 .PHONY: clean
 clean: ## clean
-	echo "clean"
+	rm -rf dist/
+
+.PHONY: setup
+setup: activate install ## setup venv, activate and install python libraries
+
+.PHONY: activate
+activate: ## Activate venv
+	poetry env use ${PYTHON}
+	. .venv/bin/activate
+
+.PHONY: install
+install: ## Install python libraries
+	poetry install
 
 .PHONY: format
 format: isort black flake8 ## format
@@ -21,9 +36,13 @@ static_analysis: radon-cc radon-raw radon-mi radon-hal xenon mypy ## static anal
 .PHONY: test
 test: pytest ## pytest
 
+.PHONY: build
+build: ## run python code
+	${POETRY} build
+
 .PHONY: run
 run: ## run python code
-	${PYTHON} ${SRC}/parser.py
+	${RUN_PYTHON} ${SRC}/${PACKAGE}/parser.py
 
 .PHONY: isort
 isort: ## isort
@@ -31,11 +50,11 @@ isort: ## isort
 
 .PHONY: black
 black: ## black
-	black ${SRC}
+	find ${SRC} -name "*.py" | xargs black
 
 .PHONY: flake8
 flake8: ## flake8
-	flake8 ${SRC}
+	flake8 --max-line-length=120 ${SRC}
 
 .PHONY: radon-cc
 radon-cc: ## radon compute Cyclomatic Complexity (CC)
@@ -64,3 +83,4 @@ mypy: ## mypy
 .PHONY: pytest
 pytest: ## pytest
 	PYTHONPATH=${SRC} pytest --cov=${SRC} --cov-fail-under=70 -v ${TESTS} --cov-report=term-missing -n 2
+
