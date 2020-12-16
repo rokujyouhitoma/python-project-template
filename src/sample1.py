@@ -1,5 +1,5 @@
 import json
-import typing
+from collections.abc import Callable
 from dataclasses import dataclass, fields
 
 raw = '{"name":"this is name","age":10}'
@@ -15,9 +15,9 @@ class ResponseModel:
 
 @dataclass
 class JSONSerializer:
-    model_class: typing.Callable
+    model_class: Callable
 
-    def serialize(self, data):
+    def serialize(self, data: dict):
         properties = (data.get(field.name) for field in fields(ResponseModel))
         return self.model_class(*properties)
 
