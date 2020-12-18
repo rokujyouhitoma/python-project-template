@@ -42,3 +42,18 @@ class Entity:
 entity = Entity(response_model)
 print(entity.name)
 print(entity.age)
+
+
+@dataclass
+class UserEntity:
+    name: str
+    age: int
+
+
+def bind(model):
+    return [getattr(model, field.name) for field in fields(model)]
+
+
+entiry = UserEntity(*bind(response_model))
+print(entity.name)
+print(entity.age)
