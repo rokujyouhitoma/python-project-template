@@ -10,6 +10,7 @@ data = json.loads(raw)
 
 
 # step3: json to model
+@dataclass
 class Model:
     pass
 
@@ -28,32 +29,22 @@ class JSONSerializer:
         properties = (data.get(field.name) for field in fields(ResponseModel))
         return self.model_class(*properties)
 
+
 response_model = JSONSerializer(ResponseModel).serialize(data)
 print(response_model)
 
 
 # Step4: Entity
-class Entity:
-    def __init__(self, model: Model):
-        for field in fields(model):
-            setattr(self, field.name, getattr(model, field.name))
-
-
-entity = Entity(response_model)
-print(entity.name)
-print(entity.age)
-
-
 @dataclass
 class UserEntity:
     name: str
     age: int
 
 
-def bind(model):
-    return [getattr(model, field.name) for field in fields(model)]
+def to_entity(model):
+    return (getattr(model, field.name) for field in fields(model))
 
 
-entiry = UserEntity(*bind(response_model))
+entity = UserEntity(*to_entity(response_model))
 print(entity.name)
 print(entity.age)
