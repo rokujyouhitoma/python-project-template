@@ -1,12 +1,12 @@
 import json
-from collections.abc import Callable
+from collections.abc import Callable, Generator
 from dataclasses import dataclass, fields
 
-# step1: raw
-raw = '{"name":"this is name","age":10}'
+# step1: raw json strings
+raw: str = '{"name":"this is name","age":10}'
 
 # step2: raw to json
-data = json.loads(raw)
+data: dict = json.loads(raw)
 
 
 # step3: json to model
@@ -25,7 +25,7 @@ class ResponseModel(Model):
 class JSONSerializer:
     model_class: Callable
 
-    def serialize(self, data: dict):
+    def serialize(self, data: dict) -> Model:
         properties = (data.get(field.name) for field in fields(ResponseModel))
         return self.model_class(*properties)
 
@@ -41,7 +41,7 @@ class UserEntity:
     age: int
 
 
-def to_entity(model):
+def to_entity(model: Model) -> Generator:
     return (getattr(model, field.name) for field in fields(model))
 
 
