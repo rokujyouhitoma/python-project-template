@@ -1,6 +1,7 @@
 import json
 from collections.abc import Callable, Generator
 from dataclasses import dataclass, fields
+import pprint
 
 # step1: raw json strings
 raw: str = '{"name":"this is name","age":10}'
@@ -46,5 +47,4 @@ def to_entity(model: Model) -> Generator:
 
 
 entity = UserEntity(*to_entity(response_model))
-print(entity.name)
-print(entity.age)
+pprint.pprint(entity)
