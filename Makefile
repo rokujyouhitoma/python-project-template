@@ -78,7 +78,7 @@ xenon: ## xenon
 
 .PHONY: mypy
 mypy: ## mypy
-	mypy ${SRC}
+	mypy --strict ${SRC}
 
 .PHONY: pytest
 pytest: ## pytest

@@ -10,7 +10,7 @@ class Node:
     body: typing.List["Node"]
 
 
-class SampleLexer(Lexer):
+class SampleLexer(Lexer):  # type: ignore
     """
     Grammar.
     statement: value
@@ -31,11 +31,11 @@ class SampleLexer(Lexer):
     DRBRACKET = r"}}"
 
     @_(r"\n+")  # type: ignore # noqa: F821
-    def newline(self, t) -> None:
+    def newline(self, t) -> None:  # type: ignore
         self.lineno += t.value.count("\n")
 
 
-class SampleParser(Parser):
+class SampleParser(Parser):  # type: ignore
     tokens = SampleLexer.tokens
 
     @_("value")  # type: ignore # noqa: F821
@@ -55,5 +55,5 @@ class SampleParser(Parser):
         return Node(type="NUMBER", body=int(p.NUMBER))
 
     @_("STRING")  # type: ignore # noqa: F821
-    def variable(self, p) -> Node:
+    def variable(self, p) -> Node:  # type: ignore
         return Node(type="VARIABLE", body=p.STRING.strip())
