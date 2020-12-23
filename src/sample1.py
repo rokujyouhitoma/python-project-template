@@ -1,13 +1,13 @@
 import json
 import pprint
 from dataclasses import dataclass, fields
-from typing import Any, Callable, Generator
+import typing
 
 # step1: raw json strings
 raw: str = '{"name":"this is name","age":10}'
 
 # step2: raw to json
-data: Any = json.loads(raw)
+data: typing.Any = json.loads(raw)
 
 
 # step3: json to model
@@ -24,10 +24,10 @@ class ResponseModel(Model):
 
 @dataclass
 class JSONSerializer:
-    model_class: Callable[..., Model]
+    model_class: typing.Callable[..., Model]
 
-    def serialize(self, data: Any) -> Model:
-        properties = (data.get(field.name) for field in fields(ResponseModel))
+    def serialize(self, data: typing.Any) -> Model:
+        properties = (data[field.name] for field in fields(ResponseModel))
         return self.model_class(*properties)
 
 
@@ -42,7 +42,7 @@ class UserEntity:
     age: int
 
 
-def to_entity(model: Model) -> Generator[Any, None, None]:
+def to_entity(model: Model) -> typing.Generator[typing.Any, None, None]:
     return (getattr(model, field.name) for field in fields(model))
 
 
