@@ -1,7 +1,7 @@
 import json
 import pprint
-from dataclasses import dataclass, fields
 import typing
+from dataclasses import dataclass, fields
 
 # step1: raw json strings
 raw: str = '{"name":"this is name","age":10}'
