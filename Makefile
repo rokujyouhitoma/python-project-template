@@ -1,11 +1,10 @@
 PACKAGE=sample
 PYTHON=python3.8
 POETRY=poetry
-RUN_PYTHON=${POETRY} run ${PYTHON}
 SRC=src
 TESTS=tests
 
-all: clean format static_analysis test build run
+all: clean format static_analysis test build
 
 .PHONY: help
 help: ## help command
@@ -39,10 +38,6 @@ test: pytest ## pytest
 .PHONY: build
 build: ## run python code
 	${POETRY} build
-
-.PHONY: run
-run: ## run python code
-	${RUN_PYTHON} ${SRC}/${PACKAGE}/parser.py
 
 .PHONY: isort
 isort: ## isort

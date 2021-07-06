@@ -15,7 +15,7 @@
 
 ## Requirements
 
- - Python 3.8
+ - Python 3.9
  - poetry
 
 ## Installation
@@ -34,4 +34,10 @@ make setup
 
 ```
 make
+```
+
+## Run the fast api application
+
+```
+PYTHONPATH=src uvicorn sample.__main__:app --reload
 ```
