@@ -1,7 +1,7 @@
 PACKAGE=sample
 PYTHON=python3.9
 POETRY=poetry
-SRC=sample
+SRC=src
 TESTS=tests
 
 all: clean format static_analysis test build
