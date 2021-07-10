@@ -33,11 +33,11 @@ jobs:
         pip install flake8 pytest mypy
     - name: Lint with flake8
       run: |
-        PYTHONPATH=. flake8 . --count --show-source --max-line-length=120 --statistics
-        PYTHONPATH=. flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
+        PYTHONPATH=src/ flake8 . --count --show-source --max-line-length=120 --statistics
+        PYTHONPATH=src/ flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
     - name: Test with pytest
       run: |
-        PYTHONPATH=. pytest
+        PYTHONPATH=src/ pytest
     - name: Static type checker with mypy
       run: |
-        PYTHONPATH=. mypy sample/
+        PYTHONPATH=src/ mypy src/
