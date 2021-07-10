@@ -1,5 +1,5 @@
 PACKAGE=sample
-PYTHON=python3.9
+PYTHON=python3.8
 POETRY=poetry
 SRC=src
 TESTS=tests
