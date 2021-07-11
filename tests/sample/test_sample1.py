@@ -1,4 +1,4 @@
-import sample1
+from sample import sample1
 
 
 def test_sample():
