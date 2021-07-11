@@ -37,7 +37,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
     - name: Test with pytest
       run: |
-        pytest
+        PYTHONPATH=. pytest
     - name: Static type checker with mypy
       run: |
         mypy sample/
