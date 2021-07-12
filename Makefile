@@ -54,7 +54,8 @@ black: ## black
 
 .PHONY: flake8
 flake8: ## flake8
-	flake8 --max-line-length=120 ${SRC}
+	# flake8 --max-line-length=120 ${SRC}
+	poetry run task lint_flake8
 
 .PHONY: radon-cc
 radon-cc: ## radon compute Cyclomatic Complexity (CC)
