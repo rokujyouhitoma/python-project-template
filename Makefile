@@ -54,8 +54,7 @@ black: ## black
 
 .PHONY: flake8
 flake8: ## flake8
-	# flake8 --max-line-length=120 ${SRC}
-	poetry run task lint_flake8
+	poetry run task flake8
 
 .PHONY: radon-cc
 radon-cc: ## radon compute Cyclomatic Complexity (CC)
@@ -79,9 +78,8 @@ xenon: ## xenon
 
 .PHONY: mypy
 mypy: ## mypy
-	mypy --strict ${SRC}
+	poetry run task mypy
 
 .PHONY: pytest
 pytest: ## pytest
 	pytest --cov=${SRC} --cov-fail-under=70 -v ${TESTS} --cov-report=term-missing -n 2
-

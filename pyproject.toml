@@ -36,3 +36,4 @@ line_length = 88
 [tool.taskipy.tasks]
 format = { cmd = "task flake8", help = "format code" }
 flake8 = "flake8 --max-line-length=120 sample"
+mypy = "mypy --strict sample"
