@@ -9,7 +9,8 @@ new=$1
 files=(
     "Makefile"
     "pyproject.toml"
-    "tests/sampletests/sample/test_parser.py"
+    "tests/sample/test_parser.py"
+    "tests/sample/test_sample1.py"
 )
 
 for ((i=0; i < ${#files[@]}; i++)) {
