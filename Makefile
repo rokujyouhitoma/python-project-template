@@ -78,7 +78,7 @@ xenon: ## xenon
 
 .PHONY: mypy
 mypy: ## mypy
-	poetry run task mypy
+	poetry run task mypy --strict
 
 .PHONY: pytest
 pytest: ## pytest
