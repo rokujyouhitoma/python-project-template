@@ -503,8 +503,8 @@ requests = ">=2.0,<3.0"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "3.8.6"
-content-hash = "902ace21de210e9422b1027f898180591e312d39471479379bddf05ac0eb4b87"
+python-versions = "3.9.0"
+content-hash = "4bf51aeffca2b542bb5f988b2a9aa02c1422a848ddf42ef3610ebdba4cb1a5a6"
 
 [metadata.files]
 appdirs = [

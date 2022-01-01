@@ -6,7 +6,7 @@ authors = ["Ike Tohru <ike.tohru@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "3.8.6"
+python = "3.9.0"
 sly = "^0.4"
 
 [tool.poetry.dev-dependencies]
